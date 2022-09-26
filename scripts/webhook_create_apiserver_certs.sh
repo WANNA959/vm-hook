@@ -47,9 +47,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 # -z判断为空，则赋默认值
-[ -z ${service} ] && service=webhook-demo-svc
-[ -z ${secret} ] && secret=webhook-demo-certs
-[ -z ${namespace} ] && namespace=webhook-demo
+[ -z ${service} ] && service=label-hook-svc
+[ -z ${secret} ] && secret=label-hook-certs
+[ -z ${namespace} ] && namespace=label-hook
 
 if [ ! -x "$(command -v openssl)" ]; then
     echo "openssl not found"
@@ -136,3 +136,7 @@ kubectl create secret generic ${secret} \
         --from-file=cert.pem=${tmpdir}/server-cert.pem \
         --dry-run=client -o yaml |
     kubectl -n ${namespace} apply -f -
+
+# download to local
+kubectl get secret webhook-demo-certs -n webhook-demo -o json | jq -r '.data."key.pem"' | base64 -d > /etc/webhook/certs/key.pem
+kubectl get secret webhook-demo-certs -n webhook-demo -o json | jq -r '.data."cert.pem"' | base64 -d > /etc/webhook/certs/cert.pem

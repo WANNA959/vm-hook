@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webhook-demo-deployment
-  namespace: webhook-demo
+  name: label-hook-deployment
+  namespace: label-hook
   labels:
-    app: webhook-demo
+    app: label-hook
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webhook-demo
+      app: label-hook
   template:
     metadata:
       labels:
-        app: webhook-demo
+        app: label-hook
     spec:
-      serviceAccount: webhook-demo-sa
+      serviceAccount: label-hook-sa
       containers:
-        - name: webhook-demo
-          image: wannazjx/webhook-demo:v1
+        - name: label-hook
+          image: wannazjx/label-hook:v1
 #          imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
           args:
@@ -31,4 +31,4 @@ spec:
       volumes:
         - name: webhook-certs
           secret:
-            secretName: webhook-demo-certs
+            secretName: label-hook-certs

@@ -1,4 +1,4 @@
 FROM alpine:latest
 
-ADD webhook-demo /webhook-demo
-ENTRYPOINT ["./webhook-demo"]
+ADD label-hook /label-hook
+ENTRYPOINT ["./label-hook"]

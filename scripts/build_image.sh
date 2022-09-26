@@ -7,9 +7,9 @@ export GOPROXY=https://goproxy.cn,direct
 CURRENT_DIR=$(cd "$(dirname "$0")";pwd)
 #echo $CURRENT_DIR /root/go_project/webhook-demo/scripts
 # build webhook
-CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webhook-demo $CURRENT_DIR/../.
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o label-hook $CURRENT_DIR/../.
 # build docker image
-docker build --no-cache -f $CURRENT_DIR/Dockerfile -t ${DOCKER_USER}/webhook-demo:v1 .
-rm -rf webhook-demo
+docker build --no-cache -f $CURRENT_DIR/Dockerfile -t ${DOCKER_USER}/label-hook:v1 .
+rm -rf label-hook
 
-docker push ${DOCKER_USER}/webhook-demo:v1
+docker push ${DOCKER_USER}/label-hook:v1
