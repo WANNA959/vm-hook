@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: label-hook-deployment
-  namespace: label-hook
   labels:
     app: label-hook
 spec:
@@ -15,12 +14,12 @@ spec:
       labels:
         app: label-hook
     spec:
+      nodeName: node139
       serviceAccount: label-hook-sa
       containers:
         - name: label-hook
           image: wannazjx/label-hook:v1
-#          imagePullPolicy: IfNotPresent
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           args:
             - -tlsCertFile=/etc/webhook/certs/cert.pem
             - -tlsKeyFile=/etc/webhook/certs/key.pem

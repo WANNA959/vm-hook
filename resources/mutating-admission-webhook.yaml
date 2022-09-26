@@ -20,6 +20,7 @@ webhooks:
       - v1
     clientConfig:
       service:
+        namespace: default
         name: label-hook-svc
         path: "/mutate/add-label"
       caBundle: ${CA_BUNDLE}

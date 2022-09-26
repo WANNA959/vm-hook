@@ -11,9 +11,10 @@ import (
 )
 
 const (
-	VMKind                = "VirtualMachine"
-	HostLable             = "host"
-	HostLableDefaultValue = "vm"
+	VMKind    = "VirtualMachine"
+	HostLable = "host"
+	// todo
+	HostLableDefaultValue = "vm.node139"
 )
 
 var (
@@ -37,14 +38,16 @@ func updateLabels(target map[string]string, added map[string]string) (patch []pa
 	for key, value := range added {
 		if target == nil || target[key] == "" {
 			newValues[key] = value
+		} else if target[key] != added[key] {
+			updateValues[key] = value
 		}
 	}
 	klog.Infof("update label:%+v", updateValues)
-	if len(newValues) != 0 {
+	for k, v := range newValues {
 		patch = append(patch, patchOperation{
 			Op:    "add",
-			Path:  "/metadata/labels",
-			Value: newValues,
+			Path:  "/metadata/labels/" + strings.ReplaceAll(k, "/", "~1"),
+			Value: v,
 		})
 	}
 	// fix patch key with /: use ~1 to encode /
@@ -75,7 +78,7 @@ func Addlabel(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResponse {
 
 	switch req.Kind.Kind {
 	case VMKind:
-		klog.Infof("vmkind %s: %+v", string(req.Object.Raw))
+		klog.Infof("vmkind str:%s: %+v", string(req.Object.Raw))
 		var deployment appsv1.Deployment
 		if err := json.Unmarshal(req.Object.Raw, &deployment); err != nil {
 			klog.Infof("Could not unmarshal raw object: %v", err)
@@ -85,8 +88,8 @@ func Addlabel(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResponse {
 				},
 			}
 		}
+		klog.Infof("deployment fake:%+v", deployment)
 		availableLabels = deployment.Labels
-	//其他不支持的类型
 	default:
 		msg := fmt.Sprintf("Not support for this Kind of resource  %v", req.Kind.Kind)
 		klog.Info(msg)

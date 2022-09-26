@@ -4,7 +4,7 @@
 kubectl delete mutatingwebhookconfiguration label-hook-cfg
 
 # delete webhook server deployment
-kubectl delete deployment label-hook-deployment -n label-hook
+kubectl delete deployment label-hook-deployment --force
 
 # rebuild & push to hub
 CURRENT_DIR=$(cd "$(dirname "$0")";pwd)

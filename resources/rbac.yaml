@@ -15,8 +15,6 @@ metadata:
 rules:
   - apiGroups:
       - doslab.io
-    apiVersions:
-      - v1
     resources:
       - "*"
     verbs:
@@ -32,6 +30,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: label-hook-sa
+    namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

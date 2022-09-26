@@ -49,7 +49,7 @@ done
 # -z判断为空，则赋默认值
 [ -z ${service} ] && service=label-hook-svc
 [ -z ${secret} ] && secret=label-hook-certs
-[ -z ${namespace} ] && namespace=label-hook
+[ -z ${namespace} ] && namespace=default
 
 if [ ! -x "$(command -v openssl)" ]; then
     echo "openssl not found"
@@ -138,5 +138,6 @@ kubectl create secret generic ${secret} \
     kubectl -n ${namespace} apply -f -
 
 # download to local
-kubectl get secret webhook-demo-certs -n webhook-demo -o json | jq -r '.data."key.pem"' | base64 -d > /etc/webhook/certs/key.pem
-kubectl get secret webhook-demo-certs -n webhook-demo -o json | jq -r '.data."cert.pem"' | base64 -d > /etc/webhook/certs/cert.pem
+mkdir -p /etc/webhook/certs/
+kubectl get secret label-hook-certs -o json | jq -r '.data."key.pem"' | base64 -d > /etc/webhook/certs/key.pem
+kubectl get secret label-hook-certs -o json | jq -r '.data."cert.pem"' | base64 -d > /etc/webhook/certs/cert.pem
