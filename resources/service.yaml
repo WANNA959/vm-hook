@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: label-hook-svc
+  labels:
+    app: label-hook
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+  selector:
+    app: label-hook

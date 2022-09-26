@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-no
+  namespace: webhook-demo
+  annotations:
+    webhook-demo.gox.com/validate: "false"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-no
+  template:
+    metadata:
+      labels:
+        app: nginx-no
+    spec:
+      containers:
+        - name: nginx-no
+          image: nginx
+          imagePullPolicy: IfNotPresent
