@@ -14,7 +14,7 @@ const (
 	VMKind    = "VirtualMachine"
 	HostLable = "host"
 	// todo
-	HostLableDefaultValue = "vm.node139"
+	HostLableDefaultValue = "vm"
 )
 
 var (

@@ -18,8 +18,9 @@ spec:
       serviceAccount: label-hook-sa
       containers:
         - name: label-hook
-          image: wannazjx/label-hook:v1
-          imagePullPolicy: IfNotPresent
+          image: registry.cn-beijing.aliyuncs.com/dosstack/kubestack-label-hook:v1
+#          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           args:
             - -tlsCertFile=/etc/webhook/certs/cert.pem
             - -tlsKeyFile=/etc/webhook/certs/key.pem
