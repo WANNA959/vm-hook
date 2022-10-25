@@ -1,4 +1,4 @@
-# kube-vm label webhook
+# kube-stack label webhook
 ## 流程
 
 ```shell
