@@ -1,4 +1,4 @@
-module github.com/WANNA959/vm-hook
+module github.com/kube-stack/vm-hook
 
 go 1.19
 

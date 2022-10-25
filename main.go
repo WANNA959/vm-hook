@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/WANNA959/vm-hook/pkg"
+	"github.com/kube-stack/vm-hook/pkg"
 	"io"
 	"net/http"
 
-	"github.com/WANNA959/vm-hook/pkg/kind"
+	"github.com/kube-stack/vm-hook/pkg/kind"
 	admissionv1 "k8s.io/api/admission/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog"
