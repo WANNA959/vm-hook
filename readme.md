@@ -38,4 +38,4 @@ kubectl apply -f test/resources/create-vm-2.json
 - /mutate/add-label：采用patch的方式
   - 检查是否存在key=host的label
     - 无则add
-    - 有且value!="vm"，则update
+    - 有且value!="vm.{xxx}"，则update

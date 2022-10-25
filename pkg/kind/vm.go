@@ -39,6 +39,9 @@ func updateLabels(target map[string]string, added map[string]string) (patch []pa
 		if target == nil || target[key] == "" {
 			newValues[key] = value
 		} else if target[key] != added[key] {
+			if key == HostLable && strings.HasPrefix(target[key], "vm.") {
+				continue
+			}
 			updateValues[key] = value
 		}
 	}
